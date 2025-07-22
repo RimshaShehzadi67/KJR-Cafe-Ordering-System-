@@ -1,0 +1,209 @@
+#include <iostream> 
+using namespace std; 
+
+class Menu { 
+public: 
+    virtual void displayMenu() = 0; 
+    virtual int orderItem() = 0; 
+    virtual string getName() = 0; 
+}; 
+
+class Burgers : public Menu { 
+public: 
+    void displayMenu() { 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t     Burgers Menu              \n"; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t   Type               Price" << endl; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t1. Chicken Burger      - Rs 200\n"; 
+        cout << "\t\t2. Beef Burger         - Rs 250\n"; 
+        cout << "\t\t3. Veggie Burger       - Rs 150\n"; 
+        cout << "\t\t===============================\n"; 
+    } 
+
+    int orderItem() { 
+        int choice; 
+        cout << "Choose your burger: "; 
+        cin >> choice; 
+        switch (choice) { 
+            case 1: return 200; 
+            case 2: return 250; 
+            case 3: return 150; 
+            default: 
+                cout << "Invalid choice!\n"; 
+                return 0; 
+        } 
+    } 
+
+    string getName() { return "Burger"; } 
+}; 
+
+class Drinks : public Menu { 
+public: 
+    void displayMenu() { 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t     Drinks Menu               \n"; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t   Type               Price" << endl; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t1. Coke     - Rs 50\n"; 
+        cout << "\t\t2. Lemonade - Rs 60\n"; 
+        cout << "\t\t3. Water    - Rs 20\n"; 
+        cout << "\t\t===============================\n"; 
+    } 
+
+    int orderItem() { 
+        int choice; 
+        cout << "Choose your drink: "; 
+        cin >> choice; 
+        switch (choice) { 
+            case 1: return 50; 
+            case 2: return 60; 
+            case 3: return 20; 
+            default: 
+                cout << "Invalid choice!\n"; 
+                return 0; 
+        } 
+    } 
+
+    string getName() { return "Drink"; } 
+}; 
+
+class Sides : public Menu { 
+public: 
+    void displayMenu() { 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t     Sides Menu                \n"; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t   Type               Price" << endl; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t1. Fries        - Rs 100\n"; 
+        cout << "\t\t2. Onion Rings  - Rs 120\n"; 
+        cout << "\t\t3. Salad        - Rs 80\n"; 
+        cout << "\t\t===============================\n"; 
+    } 
+
+    int orderItem() { 
+        int choice; 
+        cout << "Choose your side: "; 
+        cin >> choice; 
+        switch (choice) { 
+            case 1: return 100; 
+            case 2: return 120; 
+            case 3: return 80; 
+            default: 
+                cout << "Invalid choice!\n"; 
+                return 0; 
+        } 
+    } 
+
+    string getName() { return "Side"; } 
+}; 
+
+class Desserts : public Menu { 
+public: 
+    void displayMenu() { 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t     Desserts Menu             \n"; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t   Type               Price" << endl; 
+        cout << "\t\t===============================\n"; 
+        cout << "\t\t1. Ice Cream    - Rs 120\n"; 
+        cout << "\t\t2. Cake         - Rs 150\n"; 
+        cout << "\t\t3. Pie          - Rs 130\n"; 
+        cout << "\t\t===============================\n"; 
+    } 
+
+    int orderItem() { 
+        int choice; 
+        cout << "Choose your dessert: "; 
+        cin >> choice; 
+        switch (choice) { 
+            case 1: return 120; 
+            case 2: return 150; 
+            case 3: return 130; 
+            default: 
+                cout << "Invalid choice!\n"; 
+                return 0; 
+        } 
+    } 
+
+    string getName() { return "Dessert"; } 
+}; 
+
+void displayMainMenu() { 
+    cout << "\t\t===============================\n"; 
+    cout << "\t\t     WELCOME TO KJR CAFE       \n"; 
+    cout << "\t\t===============================\n"; 
+    cout << "\t\t     Main Menu                 \n"; 
+    cout << "\t\t===============================\n"; 
+    cout << "\t\t1. Burgers\n"; 
+    cout << "\t\t2. Drinks\n"; 
+    cout << "\t\t3. Sides\n"; 
+    cout << "\t\t4. Desserts\n"; 
+    cout << "\t\t5. Exit\n"; 
+    cout << "\t\t===============================\n"; 
+} 
+
+int main() { 
+    int choice, total = 0; 
+    Menu* menu; 
+    char customerName[50], paymentMethod[20]; 
+    string items[100]; 
+    int prices[100]; 
+    int itemCount = 0; 
+
+    cout << "Enter your name: "; 
+    cin.ignore(); 
+    cin.getline(customerName, 50); 
+    cout << "Enter payment method (Cash/Card): "; 
+    cin.getline(paymentMethod, 20); 
+
+    while (true) { 
+        system("cls"); 
+        displayMainMenu(); 
+        cout << "Choose a category: "; 
+        cin >> choice; 
+        switch (choice) { 
+            case 1: menu = new Burgers(); break; 
+            case 2: menu = new Drinks(); break; 
+            case 3: menu = new Sides(); break; 
+            case 4: menu = new Desserts(); break; 
+            case 5: 
+                cout << "\n======================\n"; 
+                cout << "Thank you for visiting our cafe!\n"; 
+                cout << "======================\n"; 
+                cout << "Customer Name: " << customerName << "\n"; 
+                cout << "Payment Method: " << paymentMethod << "\n"; 
+                cout << "======================\n"; 
+                cout << "Items Ordered:\n"; 
+                for (int i = 0; i < itemCount; ++i) { 
+                    cout << items[i] << " - Rs " << prices[i] << "\n"; 
+                } 
+                cout << "======================\n"; 
+                cout << "Order Total: Rs " << total << ".00\n"; 
+                cout << "======================\n"; 
+                cout << "Thank you for your order!\n"; 
+                return 0; 
+            default: 
+                cout << "Invalid choice! Please try again.\n"; 
+                continue; 
+        } 
+
+        cout << "\n"; 
+        system("cls"); 
+        menu->displayMenu(); 
+        int itemPrice = menu->orderItem(); 
+        if (itemPrice > 0) { 
+            items[itemCount] = menu->getName(); 
+            prices[itemCount] = itemPrice; 
+            itemCount++; 
+            total += itemPrice; 
+        } 
+        delete menu; 
+        menu = 0; 
+    } 
+
+    return 0; 
+}
